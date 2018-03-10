@@ -8,7 +8,7 @@ class Movie {
     }
    addRelatedMovie(m){
         if(m instanceof Movie){
-            related.push(m);
+            this.related.push(m);
             return true;
         }
         return false;
@@ -31,7 +31,7 @@ class Genre{
     }
     addMovie(m){
         if(m instanceof Movie){
-            movies.push(m);
+           this.movies.push(m);
             return true;
         }
         return false;
