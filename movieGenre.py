@@ -1,14 +1,15 @@
 class Movie:
-    uuid = ""
-    title = ""
-    year = ""
-    genres = None
-    related = []
+    def __init__(self):
+        self.uuid = ""
+        self.title = ""
+        self.year = ""
+        self.genres = None
+        self.related = []
 
     def addRelatedMovie(self, m):
         if isinstance(m, Movie):
             related.append(m)
-            return true
+            self.return true
         return false
 
     def setGenre(self, g):
@@ -19,12 +20,13 @@ class Movie:
         return false
 
 class Genre:
-    name = ""
-    movies = []
+    def __init__(self):
+        self.name = ""
+        self.movies = []
 
     def addMovie(self, m):
         if isinstance(m, Movie):
-            movies.append(m)
+            self.movies.append(m)
             return true
         return false
 

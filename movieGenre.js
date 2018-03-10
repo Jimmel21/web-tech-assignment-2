@@ -1,19 +1,19 @@
 class Movie {
     constructor(){
-        uuid = "";
-        title = "";
-        year = "";
-        genres = null;
-        related = new Movie();   
+        this.uuid = "";
+        this.title = "";
+        this.year = "";
+        this.genres = null;
+        this.related = [];   
     }
-    addRelatedMovie(Movie m){
+   addRelatedMovie(m){
         if(m instanceof Movie){
             related.push(m);
             return true;
         }
         return false;
     }
-    setGenre(Genre g){
+    setGenre(g){
         if(g instanceof Genre){
             genres = g;
             g.addMovie(this);
@@ -26,10 +26,10 @@ class Movie {
 
 class Genre{
     constructor(){
-        name = "";
-        movies = new Movie();
+        this.name = "";
+        this.movies = [];
     }
-    addMovie(Movie m){
+    addMovie(m){
         if(m instanceof Movie){
             movies.push(m);
             return true;
@@ -37,3 +37,5 @@ class Genre{
         return false;
     }
 }
+
+
