@@ -23,7 +23,10 @@ myUtil('util.js');
 const genres = [];
 const movies = [];
 
+
+var dCount = 0;
 function createGenre(){
+    dCount += 1; 
     var n = document.getElementById("name").value;
     var g = new Genre();
     g.name = n;
@@ -31,8 +34,9 @@ function createGenre(){
     enqueue(genres, g);
 
     document.getElementById("createGenre").reset(); 
-    
+    displayGenres();
     dropmenu();
+
     var genreNames = []; 
     for (var i = 0; i < genres.length; i += 1) {
         genreNames[i] = genres[i].name;
@@ -47,12 +51,10 @@ function createGenre(){
     }
 
     console.log(genres);
-    display();
+
     
 
 }
-
- 
 
 function createMovie(){
     var uuid = document.getElementById("uuid").value;
@@ -62,14 +64,23 @@ function createMovie(){
     var genre = listed.options[listed.selectedIndex].value;
     let gen = JSON.parse(genre);
 
-    gen = new Genre();
-    gen.name = genre;
+    g = new Genre();
+    g.name= gen.name;
+    g.movies = gen.movies;
     let movie = new Movie();
     movie.uuid = uuid;
     movie.title = title;
     movie.year = year;
-    movie.setGenre(gen);
+    movie.setGenre(g);
+
+    enqueue(movies, movie);
+
+    document.getElementById("createMovie").reset(); 
+
     console.log(movie);
+
+    displayMovies();
+
     
 }
 function dropmenu(){
@@ -85,30 +96,41 @@ var gen = document.getElementById("genres");
 
         gen.appendChild(e);
 }
-
-/*function displayGenres(){
+ 
+function displayGenres(){
     var gen = document.getElementById("genreList");
 
+    if (dCount > 1) {
+        while(gen.firstChild)
+            gen.removeChild(gen.firstChild); 
+    }
+
     for(var i=0; i<genres.length; i++){
-        var g = genres[i];
+       let g = genres[i];
+       console.log("This is G", g);
         var e = document.createElement("li");
-        
+        e.innerHTML = g.name
+        gen.appendChild(e);   
     }
-    let h = new Genre();
-    h.setName("Action");
-    genres.push(h);
 
-}*/
-
-function display(){
-    for(i=0; i<genres.length; i++){
-        console.log(genres[i].name);
-    }
 }
 
-function test(){
-    console.log($('#genres').attr('value'));
+function displayMovies(){
+    let htmlStr = "<table>";
+    htmlStr += "<thead><tr><th>UUID</th><th>Title</th>";
+    htmlStr += "<th>Year</th><th>Genre</th>";
+    htmlStr += "</tr></thead><tbody>";
+
+    for(var i=0; i<movies.length; i++){
+        let str = "<tr>";
+            str += "<td>" + movies[i].uuid + "</td>" + "<td>"+ movies[i].title + "</td>";
+            str += "<td>" + movies[i].year + "</td>" + "<td>"+ movies[i].genres.name + "</td>";
+        htmlStr += str;
+    }
+    htmlStr +="</tbody></table>";
+
+    var sec = document.getElementById("movieList");
+    sec.innerHTML = htmlStr;
 }
 
-//display();
-//displayGenres();
+
